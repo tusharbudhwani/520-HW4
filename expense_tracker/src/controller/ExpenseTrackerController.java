@@ -78,7 +78,7 @@ public class ExpenseTrackerController {
       Transaction removedTransaction = model.getTransactions().get(rowIndex);
       model.removeTransaction(removedTransaction);
       // comment out
-      view.update(model);
+//      view.update(model);
       // The undo was allowed.
       return true;
     }

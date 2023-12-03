@@ -24,6 +24,9 @@ public class ExpenseTrackerModel {
       throw new IllegalArgumentException("The new transaction must be non-null.");
     }
     transactions.add(t);
+
+    stateChanged();
+
     // The previous filter is no longer valid.
     matchedFilterIndices.clear();
   }
@@ -32,6 +35,8 @@ public class ExpenseTrackerModel {
     transactions.remove(t);
     // The previous filter is no longer valid.
     matchedFilterIndices.clear();
+
+    stateChanged();
   }
 
   public List<Transaction> getTransactions() {
@@ -69,30 +74,49 @@ public class ExpenseTrackerModel {
    * @return If the listener is non-null and not already registered,
    *         returns true. If not, returns false.
    */
+  // Store all the registered observers
+  private List<ExpenseTrackerModelListener> listeners = new ArrayList<>();
+
   public boolean register(ExpenseTrackerModelListener listener) {
       // For the Observable class, this is one of the methods.
       //
       // TODO
-      return false;
+
+      if (listener == null || listeners.contains(listener)) {
+          return false;
+      }
+      listeners.add(listener);
+      return true;
+
+//      return false;
   }
 
   public int numberOfListeners() {
       // For testing, this is one of the methods.
       //
       //TODO
-      return 0;
+
+      return listeners.size();
+
+//      return 0;
   }
 
   public boolean containsListener(ExpenseTrackerModelListener listener) {
       // For testing, this is one of the methods.
       //
       //TODO
-      return false;
+
+      return listeners.contains(listener);
+//      return false;
   }
 
   protected void stateChanged() {
       // For the Observable class, this is one of the methods.
       // make the model update the view
       //TODO
+
+      for (ExpenseTrackerModelListener listener : listeners) {
+          listener.update(this);
+      }
   }
 }
