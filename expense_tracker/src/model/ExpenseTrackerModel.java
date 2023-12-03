@@ -68,7 +68,7 @@ public class ExpenseTrackerModel {
    * @param listener The ExpenseTrackerModelListener to be registered
    * @return If the listener is non-null and not already registered,
    *         returns true. If not, returns false.
-   */   
+   */
   public boolean register(ExpenseTrackerModelListener listener) {
       // For the Observable class, this is one of the methods.
       //
@@ -92,7 +92,7 @@ public class ExpenseTrackerModel {
 
   protected void stateChanged() {
       // For the Observable class, this is one of the methods.
-      //
+      // make the model update the view
       //TODO
   }
 }
